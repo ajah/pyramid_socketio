@@ -8,6 +8,11 @@ from socketio.server import SocketIOServer
 from socketio.handler import SocketIOHandler
 
 class GeventSocketIOBaseWorker(GeventPyWSGIWorker):
+    @property
+    def socket(self):
+        if self.sockets:
+            return self.sockets[0]
+
     def run(self):
         self.socket.setblocking(1)
         pool = Pool(self.worker_connections)
